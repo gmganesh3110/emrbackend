@@ -11,6 +11,7 @@ import { SpecializationsModule } from './specializations/specializations.module'
 import { Specialization } from './specializations/entities/specialization.entity';
 import { TimeslotsModule } from './timeslots/timeslots.module';
 import { Timeslot } from './timeslots/entities/timeslot.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { Timeslot } from './timeslots/entities/timeslot.entity';
     UserTypesModule,
     SpecializationsModule,
     TimeslotsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

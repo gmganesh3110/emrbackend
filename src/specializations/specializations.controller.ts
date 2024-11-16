@@ -6,9 +6,11 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { SpecializationsService } from './specializations.service';
 import { CreateSpecializationDto } from './dto/specialization.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('specializations')
 export class SpecializationsController {
@@ -24,10 +26,10 @@ export class SpecializationsController {
       createSpecializationDto,
     );
   }
+  
+  @UseGuards(AuthGuard)
   @Get()
-  public async getSpecializations(
-    @Body() createSpecializationDto: CreateSpecializationDto,
-  ): Promise<any> {
+  public async getSpecializations(): Promise<any> {
     return this.specializationsService.getSpecializations();
   }
 }

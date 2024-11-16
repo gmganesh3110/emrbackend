@@ -7,9 +7,14 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { SpecializationsService } from './specializations.service';
-import { CreateSpecializationDto } from './dto/specialization.dto';
+import {
+  CreateSpecializationDto,
+  GetSpecializationDto,
+  UpdateSpecializationDto,
+} from './dto/specialization.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('specializations')
@@ -18,6 +23,7 @@ export class SpecializationsController {
     private readonly specializationsService: SpecializationsService,
   ) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   public async createSpecilization(
     @Body() createSpecializationDto: CreateSpecializationDto,
@@ -26,10 +32,30 @@ export class SpecializationsController {
       createSpecializationDto,
     );
   }
-  
+
   @UseGuards(AuthGuard)
   @Get()
-  public async getSpecializations(): Promise<any> {
-    return this.specializationsService.getSpecializations();
+  public async getSpecializations(
+    @Query() getSpecializationDto: GetSpecializationDto,
+  ): Promise<any> {
+    return this.specializationsService.getSpecializations(getSpecializationDto);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get(':id')
+  public async getSpecialization(@Param('id') id: number): Promise<any> {
+    return this.specializationsService.getSpecialization(id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch(':id')
+  public async updateSpecialization(
+    @Param('id') id: number,
+    @Body() updateSpecializationDto: UpdateSpecializationDto,
+  ): Promise<any> {
+    return this.specializationsService.updateSpecialization(
+      id,
+      updateSpecializationDto,
+    );
   }
 }

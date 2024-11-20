@@ -58,4 +58,16 @@ export class SpecializationsController {
       updateSpecializationDto,
     );
   }
+
+  @UseGuards(AuthGuard)
+  @Delete(':id')
+  public async deleteSpecialization(
+    @Param('id') id: number,
+    @Body() request:any,
+  ): Promise<any> {
+    return this.specializationsService.deleteSpecialization(
+      id,
+      request,
+    );
+  }
 }

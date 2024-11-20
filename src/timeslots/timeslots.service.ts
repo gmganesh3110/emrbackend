@@ -12,9 +12,37 @@ export class TimeslotsService {
     try {
       const timeslotPromises = createTimeslotDto.map(
         async (timeslot: CreateTimeslotDto) => {
-          const {id, doctorId, day, startTime, endTime, createdBy } = timeslot;
-          const query = `call timeslotcreate(?,?,?,?,?,?)`;
-          const params = [id,doctorId, day, startTime, endTime, createdBy || 1];
+          const {
+            id,
+            doctorId,
+            appointmentsCount,
+            sunday,
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            saturday,
+            startTime,
+            endTime,
+            createdBy,
+          } = timeslot;
+          const query = `call timeslotcreate(?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+          const params = [
+            id,
+            doctorId,
+            appointmentsCount,
+            sunday,
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            saturday,
+            startTime,
+            endTime,
+            createdBy,
+          ];
           return this.entityManager.query(query, params);
         },
       );
@@ -37,11 +65,21 @@ export class TimeslotsService {
     }
   }
 
-  public async deleteTimeslot(id:number):Promise<any>{
+  public async deleteTimeslot(id: number): Promise<any> {
     try {
       const query = 'call timeslotdeleteslotfordoctor(?)';
       const params = [id];
       return await this.entityManager.query(query, params);
+    } catch (err) {
+      console.error(err);
+      throw new InternalServerErrorException('Internal Server Error');
+    }
+  }
+
+  public async timeSlotGetDoctors(): Promise<any> {
+    try {
+      const query = 'call timeslotgetdoctors()';
+      return await this.entityManager.query(query);
     } catch (err) {
       console.error(err);
       throw new InternalServerErrorException('Internal Server Error');

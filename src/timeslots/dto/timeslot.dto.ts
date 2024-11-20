@@ -1,7 +1,14 @@
 export class CreateTimeslotDto {
-  id?:number;
+  id?: number;
   doctorId: number;
-  day: number;
+  appointmentsCount:number;
+  sunday: boolean;
+  monday: boolean;
+  tuesday: boolean;
+  wednesday: boolean;
+  thursday: boolean;
+  friday: boolean;
+  saturday: boolean;
   startTime: string;
   endTime: string;
   createdBy: number = 1;

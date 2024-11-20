@@ -63,4 +63,19 @@ export class SpecializationsService {
       throw new InternalServerErrorException('Internal Server Error');
     }
   }
+  public async deleteSpecialization(
+    id: number,
+    request: any,
+  ): Promise<any> {
+    try {
+
+      const params: any[] = [id, request.modifiedBy];
+      const query: string = 'call specializationdeletesingle(?,?)';
+      await this.entityManager.query(query, params);
+      return 'Specialization Deleted Successfully';
+    } catch (err) {
+      console.log(err);
+      throw new InternalServerErrorException('Internal Server Error');
+    }
+  }
 }

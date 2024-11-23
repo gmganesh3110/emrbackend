@@ -12,6 +12,8 @@ import { Specialization } from './specializations/entities/specialization.entity
 import { TimeslotsModule } from './timeslots/timeslots.module';
 import { Timeslot } from './timeslots/entities/timeslot.entity';
 import { AuthModule } from './auth/auth.module';
+import { PatientsModule } from './patients/patients.module';
+import { Patients } from './patients/entities/patient.entity';
 
 @Module({
   imports: [
@@ -30,7 +32,7 @@ import { AuthModule } from './auth/auth.module';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
         synchronize: true,
-        entities: [Users, UserRole, Specialization, Timeslot],
+        entities: [Users, UserRole, Specialization, Timeslot,Patients],
       }),
     }),
     UsersModule,
@@ -38,6 +40,7 @@ import { AuthModule } from './auth/auth.module';
     SpecializationsModule,
     TimeslotsModule,
     AuthModule,
+    PatientsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -14,6 +14,9 @@ import { Timeslot } from './timeslots/entities/timeslot.entity';
 import { AuthModule } from './auth/auth.module';
 import { PatientsModule } from './patients/patients.module';
 import { Patients } from './patients/entities/patient.entity';
+import { TimeslotintervalsModule } from './timeslotintervals/timeslotintervals.module';
+import { Timeslotinterval } from './timeslotintervals/entities/timeslotinterval.entity';
+import { AppointmentsModule } from './appointments/appointments.module';
 
 @Module({
   imports: [
@@ -32,7 +35,14 @@ import { Patients } from './patients/entities/patient.entity';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
         synchronize: true,
-        entities: [Users, UserRole, Specialization, Timeslot,Patients],
+        entities: [
+          Users,
+          UserRole,
+          Specialization,
+          Timeslot,
+          Patients,
+          Timeslotinterval,
+        ],
       }),
     }),
     UsersModule,
@@ -41,6 +51,8 @@ import { Patients } from './patients/entities/patient.entity';
     TimeslotsModule,
     AuthModule,
     PatientsModule,
+    TimeslotintervalsModule,
+    AppointmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -17,6 +17,7 @@ import { Patients } from './patients/entities/patient.entity';
 import { TimeslotintervalsModule } from './timeslotintervals/timeslotintervals.module';
 import { Timeslotinterval } from './timeslotintervals/entities/timeslotinterval.entity';
 import { AppointmentsModule } from './appointments/appointments.module';
+import { Appointment } from './appointments/entities/appointment.entity';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { AppointmentsModule } from './appointments/appointments.module';
           Timeslot,
           Patients,
           Timeslotinterval,
+          Appointment
         ],
       }),
     }),

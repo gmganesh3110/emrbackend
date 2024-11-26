@@ -1,34 +1,61 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Query,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { AppointmentsService } from './appointments.service';
-import { CreateAppointmentDto } from './dto/create-appointment.dto';
-import { UpdateAppointmentDto } from './dto/update-appointment.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
+import {
+  CreateAppointmentDto,
+  GetAppointmentsDto,
+  GetDoctorTimeDto,
+} from './dto/appointment.dto';
 
 @Controller('appointments')
 export class AppointmentsController {
   constructor(private readonly appointmentsService: AppointmentsService) {}
 
-  @Post()
-  create(@Body() createAppointmentDto: CreateAppointmentDto) {
-    return this.appointmentsService.create(createAppointmentDto);
+  @UseGuards(AuthGuard)
+  @Get('doctors')
+  public async getAppointmentDoctors(): Promise<any> {
+    return this.appointmentsService.getAppointmentDoctors();
   }
+  
 
+  @UseGuards(AuthGuard)
   @Get()
-  findAll() {
-    return this.appointmentsService.findAll();
+  public async getAllAppointments(
+    @Query() getAppointmentsDto: GetAppointmentsDto,
+  ): Promise<any> {
+    return this.appointmentsService.getAllAppointments(getAppointmentsDto);
+  }
+  @UseGuards(AuthGuard)
+  @Get('doctortimeslots')
+  public async getDoctorTimeslots(
+    @Query() getDoctorTimeDto: GetDoctorTimeDto,
+  ): Promise<any> {
+    return this.appointmentsService.getDoctorTimeslots(getDoctorTimeDto);
+  }
+  @UseGuards(AuthGuard)
+  @Get('patients/:id')
+  public async getPatientDetails(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<any> {
+    return this.appointmentsService.getPatientDetails(id);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.appointmentsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAppointmentDto: UpdateAppointmentDto) {
-    return this.appointmentsService.update(+id, updateAppointmentDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.appointmentsService.remove(+id);
+  @UseGuards(AuthGuard)
+  @Post('create')
+  public async createAppointment(
+    @Body() createAppointmentDto: CreateAppointmentDto,
+  ): Promise<any> {
+    return this.appointmentsService.createAppointment(createAppointmentDto);
   }
 }

@@ -18,6 +18,8 @@ import { TimeslotintervalsModule } from './timeslotintervals/timeslotintervals.m
 import { Timeslotinterval } from './timeslotintervals/entities/timeslotinterval.entity';
 import { AppointmentsModule } from './appointments/appointments.module';
 import { Appointment } from './appointments/entities/appointment.entity';
+import { VitalsModule } from './vitals/vitals.module';
+import { Vitals } from './vitals/entities/vital.entity';
 
 @Module({
   imports: [
@@ -43,7 +45,8 @@ import { Appointment } from './appointments/entities/appointment.entity';
           Timeslot,
           Patients,
           Timeslotinterval,
-          Appointment
+          Appointment,
+          Vitals
         ],
       }),
     }),
@@ -55,6 +58,7 @@ import { Appointment } from './appointments/entities/appointment.entity';
     PatientsModule,
     TimeslotintervalsModule,
     AppointmentsModule,
+    VitalsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

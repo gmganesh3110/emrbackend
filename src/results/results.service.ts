@@ -1,15 +1,11 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import {
-  CreateVitalDto,
-  SearchVitalsDto,
-  UpdateVitalDto,
-} from './dto/vital.dto';
 import { EntityManager } from 'typeorm';
+import { CreateResultsDto, SearchResultsDto, UpdateResultsDto } from './dto/result.dto';
 
 @Injectable()
-export class VitalsService {
+export class ResultsService {
   constructor(private entityManager: EntityManager) {}
-  public async addVitals(createVitalDto: CreateVitalDto): Promise<any> {
+  public async addResults(createResultsDto: CreateResultsDto): Promise<any> {
     try {
       const {
         name,
@@ -18,8 +14,8 @@ export class VitalsService {
         measurement,
         description,
         createdBy,
-      } = createVitalDto;
-      const query = 'call vitalscreate(?,?,?,?,?,?)';
+      } = createResultsDto;
+      const query = 'call resultscreate(?,?,?,?,?,?)';
       const params = [
         name,
         shortCode,
@@ -29,41 +25,41 @@ export class VitalsService {
         createdBy,
       ];
       await this.entityManager.query(query, params);
-      return 'Vitals added successfully';
+      return 'results added successfully';
     } catch (err) {
       console.log(err);
       throw new InternalServerErrorException('Internal Server Error');
     }
   }
 
-  public async getAllVitals(searchVitalsDto: SearchVitalsDto): Promise<any> {
+  public async getAllResults(searchResultsDto: SearchResultsDto): Promise<any> {
     try {
-      const { name, code, start, limit } = searchVitalsDto;
-      const query = 'call vitalsgetall(?,?,?,?)';
+      const { name, code, start, limit } = searchResultsDto;
+      const query = 'call resultsgetall(?,?,?,?)';
       const params = [name, code, start, limit];
       return await this.entityManager.query(query, params);
     } catch (err) {}
   }
 
-  public async getVitalSigle(id: number): Promise<any> {
+  public async getResultsSingle(id: number): Promise<any> {
     try {
-      const query = 'call vitalsgetone(?)';
+      const query = 'call resultsgetone(?)';
       const params = [id];
       return await this.entityManager.query(query, params);
     } catch (err) {}
   }
 
-  public async deleteSingleVital(id: number, request: any): Promise<any> {
+  public async deleteSingleResult(id: number, request: any): Promise<any> {
     try {
-      const query = 'call vitalsdeleteone(?,?)';
+      const query = 'call resultsdeleteone(?,?)';
       const params = [id, request?.modifiedBy];
       return await this.entityManager.query(query, params);
     } catch (err) {}
   }
 
-  public async updateSingleVital(
+  public async updateSingleResult(
     id: number,
-    updateVitalDto: UpdateVitalDto,
+    updateResultsDto: UpdateResultsDto,
   ): Promise<any> {
     try {
       const {
@@ -73,8 +69,8 @@ export class VitalsService {
         measurement,
         description,
         modifiedBy,
-      } = updateVitalDto;
-      const query = 'call vitalsupdateone(?,?,?,?,?,?,?)';
+      } = updateResultsDto;
+      const query = 'call resultsupdateone(?,?,?,?,?,?,?)';
       const params = [
         id,
         name,
@@ -85,10 +81,11 @@ export class VitalsService {
         modifiedBy,
       ];
       await this.entityManager.query(query, params);
-      return 'Vitals Updated successfully';
+      return 'Results Updated successfully';
     } catch (err) {
       console.log(err);
       throw new InternalServerErrorException('Internal Server Error');
     }
   }
+
 }

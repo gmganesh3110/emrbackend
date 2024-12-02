@@ -20,6 +20,8 @@ import { AppointmentsModule } from './appointments/appointments.module';
 import { Appointment } from './appointments/entities/appointment.entity';
 import { VitalsModule } from './vitals/vitals.module';
 import { Vitals } from './vitals/entities/vital.entity';
+import { ResultsModule } from './results/results.module';
+import { Results } from './results/entities/result.entity';
 
 @Module({
   imports: [
@@ -46,7 +48,8 @@ import { Vitals } from './vitals/entities/vital.entity';
           Patients,
           Timeslotinterval,
           Appointment,
-          Vitals
+          Vitals,
+          Results,
         ],
       }),
     }),
@@ -59,6 +62,7 @@ import { Vitals } from './vitals/entities/vital.entity';
     TimeslotintervalsModule,
     AppointmentsModule,
     VitalsModule,
+    ResultsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

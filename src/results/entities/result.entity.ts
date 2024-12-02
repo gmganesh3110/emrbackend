@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Vitals {
+export class Results {
   @PrimaryGeneratedColumn()
   id: number;
 

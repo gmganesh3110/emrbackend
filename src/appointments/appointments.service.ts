@@ -1,6 +1,10 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { EntityManager } from 'typeorm';
-import { CreateAppointmentDto, GetAppointmentsDto, GetDoctorTimeDto } from './dto/appointment.dto';
+import {
+  CreateAppointmentDto,
+  GetAppointmentsDto,
+  GetDoctorTimeDto,
+} from './dto/appointment.dto';
 
 @Injectable()
 export class AppointmentsService {
@@ -12,14 +16,17 @@ export class AppointmentsService {
     } catch (err) {}
   }
 
-  public async getAllAppointments(getAppointmentsDto:GetAppointmentsDto): Promise<any> {
+  public async getAllAppointments(
+    getAppointmentsDto: GetAppointmentsDto,
+  ): Promise<any> {
     try {
-      const {date,doctorId,patientId,patientName,status}=getAppointmentsDto
+      const { date, doctorId, patientId, patientName, status } =
+        getAppointmentsDto;
       const query = `call appointmentsgetallappointments(?,?,?,?,?)`;
-      const params=[date,doctorId,patientId,patientName,status];
-      return await this.entityManager.query(query,params);
+      const params = [date, doctorId, patientId, patientName, status];
+      return await this.entityManager.query(query, params);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       throw new InternalServerErrorException('Internal Server Error');
     }
   }
@@ -71,7 +78,50 @@ export class AppointmentsService {
         createdBy,
       ];
       await this.entityManager.query(query, params);
-      return "Appointment Added Successfully"
+      return 'Appointment Added Successfully';
+    } catch (err) {
+      console.log(err);
+      throw new InternalServerErrorException('Internal Server Error');
+    }
+  }
+
+  public async getViewPatientDetails(id: number): Promise<any> {
+    try {
+      const query = 'call appointmentsgetviewpatient(?)';
+      const params = [id];
+      return this.entityManager.query(query, params);
+    } catch (err) {
+      console.log(err);
+      throw new InternalServerErrorException('Internal Server Error');
+    }
+  }
+
+  public async getSingleAppointment(id:number):Promise<any>{
+    try {
+      const query = 'call appointmentsgetsingle(?)';
+      const params = [id];
+      return this.entityManager.query(query, params);
+    } catch (err) {
+      console.log(err);
+      throw new InternalServerErrorException('Internal Server Error');
+    }
+  }
+
+  public async getAppointmentVitals(id:number):Promise<any>{
+    try {
+      const query = 'call appointmentsgetvitals(?)';
+      const params = [id];
+      return this.entityManager.query(query, params);
+    } catch (err) {
+      console.log(err);
+      throw new InternalServerErrorException('Internal Server Error');
+    }
+  }
+  public async getAppointmentResults(id:number):Promise<any>{
+    try {
+      const query = 'call appointmentsgetresults(?)';
+      const params = [id];
+      return this.entityManager.query(query, params);
     } catch (err) {
       console.log(err);
       throw new InternalServerErrorException('Internal Server Error');

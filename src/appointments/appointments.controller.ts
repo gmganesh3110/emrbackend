@@ -57,5 +57,38 @@ export class AppointmentsController {
     @Body() createAppointmentDto: CreateAppointmentDto,
   ): Promise<any> {
     return this.appointmentsService.createAppointment(createAppointmentDto);
+  } 
+
+  @UseGuards(AuthGuard)
+  @Get('viewpatient/:id')
+  public async getViewPatientDetails(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<any> {
+    return this.appointmentsService.getViewPatientDetails(id);
   }
+
+  @UseGuards(AuthGuard)
+  @Get(':id')
+  public async getSingleAppointment(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<any> {
+    return this.appointmentsService.getSingleAppointment(id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('vitals/:id')
+  public async getAppointmentVitals(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<any> {
+    return this.appointmentsService.getAppointmentVitals(id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('results/:id')
+  public async getAppointmentResults(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<any> {
+    return this.appointmentsService.getAppointmentResults(id);
+  }
+
 }

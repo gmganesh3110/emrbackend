@@ -22,6 +22,8 @@ import { VitalsModule } from './vitals/vitals.module';
 import { Vitals } from './vitals/entities/vital.entity';
 import { ResultsModule } from './results/results.module';
 import { Results } from './results/entities/result.entity';
+import { AppointmentvitalsModule } from './appointmentvitals/appointmentvitals.module';
+import { AppointmentresultsModule } from './appointmentresults/appointmentresults.module';
 
 @Module({
   imports: [
@@ -63,6 +65,8 @@ import { Results } from './results/entities/result.entity';
     AppointmentsModule,
     VitalsModule,
     ResultsModule,
+    AppointmentvitalsModule,
+    AppointmentresultsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

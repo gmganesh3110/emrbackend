@@ -24,6 +24,11 @@ import { ResultsModule } from './results/results.module';
 import { Results } from './results/entities/result.entity';
 import { AppointmentvitalsModule } from './appointmentvitals/appointmentvitals.module';
 import { AppointmentresultsModule } from './appointmentresults/appointmentresults.module';
+import { Appointmentresult } from './appointmentresults/entities/appointmentresult.entity';
+import { Appointmentvital } from './appointmentvitals/entities/appointmentvital.entity';
+import { FeeitemsModule } from './feeitems/feeitems.module';
+import { PaymodesModule } from './paymodes/paymodes.module';
+import { Paymode } from './paymodes/entities/paymode.entity';
 
 @Module({
   imports: [
@@ -52,6 +57,9 @@ import { AppointmentresultsModule } from './appointmentresults/appointmentresult
           Appointment,
           Vitals,
           Results,
+          Appointmentresult,
+          Appointmentvital,
+          Paymode
         ],
       }),
     }),
@@ -67,6 +75,8 @@ import { AppointmentresultsModule } from './appointmentresults/appointmentresult
     ResultsModule,
     AppointmentvitalsModule,
     AppointmentresultsModule,
+    FeeitemsModule,
+    PaymodesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

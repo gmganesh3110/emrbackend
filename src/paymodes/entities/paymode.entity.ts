@@ -1,7 +1,4 @@
-import { Appointment } from 'src/appointments/entities/appointment.entity';
-import { Results } from 'src/results/entities/result.entity';
 import { Users } from 'src/users/entities/user.entity';
-import { Vitals } from 'src/vitals/entities/vital.entity';
 import {
   Column,
   CreateDateColumn,
@@ -13,20 +10,15 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Appointmentresult {
+export class Paymode {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Appointment)
-  @JoinColumn({ name: 'appointmentId' })
-  appointmentId: number;
-
-  @ManyToOne(() => Results)
-  @JoinColumn({ name: 'resultId' })
-  resultId: number;
+  @Column({ unique: true })
+  paymode: string;
 
   @Column()
-  resultValue: string;
+  description: string;
 
   @ManyToOne(() => Users)
   @JoinColumn({ name: 'createdBy' })
@@ -40,8 +32,8 @@ export class Appointmentresult {
   modifiedBy: number;
 
   @UpdateDateColumn({ type: 'datetime' })
-  modifiedAt: Date;
+  modifiedAt: number;
 
-  @Column()
+  @Column({ type: 'boolean', default: true })
   activeStatus: boolean;
 }
